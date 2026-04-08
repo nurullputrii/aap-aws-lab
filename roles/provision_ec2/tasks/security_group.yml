@@ -1,5 +1,6 @@
 ---
 - name: Create EC2 security group
+  become: false
   amazon.aws.ec2_security_group:
     name: "{{ ec2_tag_project }}-sg"
     description: "AAP lab security group"
