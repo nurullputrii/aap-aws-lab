@@ -1,0 +1,22 @@
+# Vault credentials
+.vault_password
+
+# Ansible artifacts
+*.retry
+*.pyc
+__pycache__/
+
+# Local environment
+.env
+.venv
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temporary files
+*.tmp
+*.bak
