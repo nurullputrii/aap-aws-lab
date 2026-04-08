@@ -1,0 +1,10 @@
+# roles/provision_ec2/tasks/main.yml
+---
+- name: Include security group tasks
+  ansible.builtin.include_tasks: security_group.yml
+
+- name: Include EC2 launch tasks
+  ansible.builtin.include_tasks: launch.yml
+
+- name: Include post-provision tasks
+  ansible.builtin.include_tasks: post_provision.yml

@@ -1,0 +1,6 @@
+---
+# roles/provision_ec2/defaults/main.yml
+provision_ec2_instance_type: "{{ aws_instance_type }}"
+provision_ec2_instance_name: "{{ ec2_tag_env }}-web-01"
+provision_ec2_wait_timeout: 120
+provision_ec2_state: running

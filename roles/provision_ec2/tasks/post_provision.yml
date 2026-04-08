@@ -1,0 +1,23 @@
+---
+- name: Display instance details
+  ansible.builtin.debug:
+    msg: |
+      Instance ID:   {{ provision_ec2_result.instances[0].instance_id }}
+      Public IP:     {{ provision_ec2_result.instances[0].public_ip_address }}
+      Private IP:    {{ provision_ec2_result.instances[0].private_ip_address }}
+      State:         {{ provision_ec2_result.instances[0].state.name }}
+
+- name: Add new instance to in-memory inventory
+  ansible.builtin.add_host:
+    hostname: "{{ provision_ec2_result.instances[0].public_ip_address }}"
+    groupname: newly_provisioned
+    ansible_user: ec2-user
+    ansible_ssh_private_key_file: "~/.ssh/{{ aws_key_pair_name }}.pem"
+
+- name: Wait for SSH to become available
+  ansible.builtin.wait_for:
+    host: "{{ provision_ec2_result.instances[0].public_ip_address }}"
+    port: 22
+    delay: 10
+    timeout: 120
+    state: started

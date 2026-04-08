@@ -1,0 +1,9 @@
+Running command:
+  docker build -f context/Dockerfile -t aap-aws-ee:1.0.0 context
+DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
+            Install the buildx component to build images with BuildKit:
+            https://docs.docker.com/go/buildx/
+
+permission denied while trying to connect to the docker API at unix:///var/run/docker.sock
+
+An error occurred (rc=1), see output line(s) above for details.

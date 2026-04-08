@@ -1,0 +1,4 @@
+# group_vars/all/vault.yml   (will be encrypted in Phase 3)
+---
+vault_aws_access_key: "AKIA3CTFWC2WAYQGFEMS"
+vault_aws_secret_key: "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"

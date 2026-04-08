@@ -1,0 +1,11 @@
+---
+ansible-navigator:
+  playbook-artifact:
+    enable: false
+  ansible:
+    inventory:
+      entries:
+      - inventory/
+  execution-environment:
+    enabled: false
+  mode: stdout

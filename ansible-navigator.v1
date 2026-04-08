@@ -1,0 +1,10 @@
+# ansible-navigator.yml  (root of repo)
+ansible-navigator:
+  execution-environment:
+    enabled: false          # use local venv during dev; switch true for EE testing
+  mode: stdout              # no TUI — cleaner output for learning
+  ansible:
+    inventories:
+      - inventory/
+
+

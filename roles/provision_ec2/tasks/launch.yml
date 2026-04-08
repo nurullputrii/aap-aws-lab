@@ -1,0 +1,20 @@
+---
+- name: Provision EC2 instance
+  amazon.aws.ec2_instance:
+    name: "{{ provision_ec2_instance_name }}"
+    key_name: "{{ aws_key_pair_name }}"
+    instance_type: "{{ aws_instance_type }}"
+    image_id: "{{ aws_ami_id }}"
+    region: "{{ aws_region }}"
+    subnet_id: "{{ aws_subnet_id }}"
+    access_key: "{{ vault_aws_access_key }}"
+    secret_key: "{{ vault_aws_secret_key }}"
+    security_group: "{{ ec2_tag_project }}-sg"
+    tags:
+      Name: "{{ provision_ec2_instance_name }}"
+      Env: "{{ ec2_tag_env }}"
+      Project: "{{ ec2_tag_project }}"
+      ManagedBy: "ansible"
+    wait: true
+    state: running
+  register: provision_ec2_result

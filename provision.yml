@@ -1,0 +1,72 @@
+---
+- name: Provision EC2 instance
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  roles:
+    - role: provision_ec2
+
+# - name: Provision EC2 instance on AWS
+#   hosts: localhost
+#   connection: local
+#   gather_facts: false
+#   vars:
+#     instance_name: "{{ env | default(ec2_tag_env) }}-web-{{ 999 | random }}"
+#   tasks:
+#     - name: Create EC2 security group
+#       amazon.aws.ec2_security_group:
+#         name: "{{ ec2_tag_project }}-sg"
+#         description: "AAP lab security group"
+#         vpc_id: "{{ aws_vpc_id }}"
+#         region: "{{ aws_region }}"
+#         access_key: "{{ vault_aws_access_key }}"
+#         secret_key: "{{ vault_aws_secret_key }}"
+#         rules:
+#           - proto: tcp
+#             ports: [22, 80, 443]
+#             cidr_ip: 0.0.0.0/0
+#         state: present
+#       register: sg_result
+
+#     - name: Provision EC2 instance
+#       amazon.aws.ec2_instance:
+#         name: "{{ instance_name }}"
+#         key_name: "{{ aws_key_pair_name }}"
+#         instance_type: "{{ aws_instance_type }}"
+#         image_id: "{{ aws_ami_id }}"
+#         region: "{{ aws_region }}"
+#         subnet_id: "{{ aws_subnet_id }}"
+#         access_key: "{{ vault_aws_access_key }}"
+#         secret_key: "{{ vault_aws_secret_key }}"
+#         security_group: "{{ ec2_tag_project }}-sg"
+#         tags:
+#           Name: "{{ instance_name }}"
+#           Env: "{{ ec2_tag_env }}"
+#           Project: "{{ ec2_tag_project }}"
+#           ManagedBy: "ansible"
+#         wait: true
+#         state: running
+#       register: ec2_result
+
+#     - name: Display instance details
+#       ansible.builtin.debug:
+#         msg: |
+#           Instance ID:   {{ ec2_result.instances[0].instance_id }}
+#           Public IP:     {{ ec2_result.instances[0].public_ip_address }}
+#           Private IP:    {{ ec2_result.instances[0].private_ip_address }}
+#           State:         {{ ec2_result.instances[0].state.name }}
+
+#     - name: Add new instance to in-memory inventory
+#       ansible.builtin.add_host:
+#         hostname: "{{ ec2_result.instances[0].public_ip_address }}"
+#         groupname: newly_provisioned
+#         ansible_user: ec2-user
+#         ansible_ssh_private_key_file: "~/.ssh/{{ aws_key_pair_name }}.pem"
+
+#     - name: Wait for SSH to become available
+#       ansible.builtin.wait_for:
+#         host: "{{ ec2_result.instances[0].public_ip_address }}"
+#         port: 22
+#         delay: 10
+#         timeout: 120
+#         state: started
