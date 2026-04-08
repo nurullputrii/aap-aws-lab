@@ -1,5 +1,6 @@
 ---
 - name: Provision EC2 instance
+  become: false
   amazon.aws.ec2_instance:
     name: "{{ provision_ec2_instance_name }}"
     key_name: "{{ aws_key_pair_name }}"
