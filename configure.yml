@@ -1,0 +1,14 @@
+# configure.yml
+---
+- name: Configure EC2 instance as web server
+  hosts: "{{ target_group | default('env_lab') }}"
+  become: true
+  gather_facts: true
+
+  vars:
+    app_name: "acme-webapp"
+    app_version: "{{ version | default('1.0.0') }}"
+    http_port: 80
+
+  roles:
+    - role: configure_ec2

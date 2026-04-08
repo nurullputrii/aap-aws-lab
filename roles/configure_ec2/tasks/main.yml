@@ -1,0 +1,32 @@
+---
+- name: Install web server packages
+  ansible.builtin.dnf:
+    name:
+      - httpd
+      - mod_ssl
+      - firewalld
+    state: present
+
+- name: Deploy application index page
+  ansible.builtin.template:
+    src: index.html.j2
+    dest: /var/www/html/index.html
+    owner: apache
+    mode: "0644"
+  notify: Reload httpd
+
+- name: Ensure httpd and firewalld are started and enabled
+  ansible.builtin.service:
+    name: "{{ item }}"
+    state: started
+    enabled: true
+  loop:
+    - httpd
+    - firewalld
+
+- name: Open HTTP port in firewalld
+  ansible.posix.firewalld:
+    port: "{{ http_port }}/tcp"
+    permanent: true
+    immediate: true
+    state: enabled
