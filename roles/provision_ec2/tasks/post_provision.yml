@@ -15,6 +15,7 @@
     ansible_ssh_private_key_file: "~/.ssh/{{ aws_key_pair_name }}.pem"
 
 - name: Wait for SSH to become available
+  become: false
   ansible.builtin.wait_for:
     host: "{{ provision_ec2_result.instances[0].public_ip_address }}"
     port: 22
