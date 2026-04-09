@@ -5,7 +5,7 @@ ansible-navigator:
   ansible:
     inventory:
       entries:
-      - inventory/
+        - inventory/
   execution-environment:
-    enabled: false
+    enabled: true
   mode: stdout
