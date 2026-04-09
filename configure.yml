@@ -1,7 +1,7 @@
 # configure.yml
 ---
 - name: Configure EC2 instance as web server
-  hosts: "{{ target_group | default('env_lab') }}"
+  hosts: newly_provisioned
   become: true
   gather_facts: true
 
