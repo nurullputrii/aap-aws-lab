@@ -1,5 +1,5 @@
 ---
-- name: Reload httpd
+- name: Reload apache2
   ansible.builtin.service:
-    name: httpd
+    name: apache2
     state: reloaded
