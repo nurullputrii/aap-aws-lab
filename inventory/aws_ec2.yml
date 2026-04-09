@@ -1,10 +1,9 @@
 ---
 plugin: amazon.aws.aws_ec2
-aws_access_key_id: "{{ lookup('env', 'AWS_ACCESS_KEY_ID') }}"
-aws_secret_access_key: "{{ lookup('env', 'AWS_SECRET_ACCESS_KEY') }}"
-aws_security_token: "{{ lookup('env', 'AWS_SESSION_TOKEN') | default(omit) }}"
+aws_access_key_id: "{{ 'vault_aws_access_key' }}"
+aws_secret_access_key: "{{ 'vault_aws_secret_key' }}"
 regions:
-  - "{{ aws_region }}"
+  - ap-southeast-1
 keyed_groups:
   - key: placement.region
     prefix: aws_region
@@ -18,5 +17,4 @@ hostnames:
 compose:
   ansible_host: public_ip_address
 host_options:
-  ansible_user: ec2-user
-  ansible_ssh_common_args: "-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
+  ansible_user: ubuntu

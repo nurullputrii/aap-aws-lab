@@ -1,9 +1,8 @@
 ---
 - name: Install web server packages
-  ansible.builtin.dnf:
+  ansible.builtin.apt:
     name:
-      - httpd
-      - mod_ssl
+      - apache2
       - firewalld
     state: present
 
@@ -13,15 +12,15 @@
     dest: /var/www/html/index.html
     owner: apache
     mode: "0644"
-  notify: Reload httpd
+  notify: Reload apache2
 
-- name: Ensure httpd and firewalld are started and enabled
+- name: Ensure apache2 and firewalld are started and enabled
   ansible.builtin.service:
     name: "{{ item }}"
     state: started
     enabled: true
   loop:
-    - httpd
+    - apache2
     - firewalld
 
 - name: Open HTTP port in firewalld

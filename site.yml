@@ -1,0 +1,14 @@
+---
+- name: Provision EC2 instance
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  roles:
+    - role: provision_ec2
+
+- name: Configure newly provisioned EC2 instance
+  hosts: newly_provisioned
+  become: true
+  gather_facts: true
+  roles:
+    - role: configure_ec2
